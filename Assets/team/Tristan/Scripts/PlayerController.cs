@@ -5,9 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     #region Public Members
-    [Range(1.0f, 100.0f)]
+    [Range(1.0f, 50.0f)]
     public float m_speed;
-    public Rigidbody m_rigidbody;
 
     #endregion
 
@@ -17,10 +16,10 @@ public class PlayerController : MonoBehaviour
 
     #region System
 
-    void Start()
+    void Awake()
     {
-		
-	}
+        m_rigidbody = GetComponent<Rigidbody>();
+}
 
     void FixedUpdate()
     {
@@ -39,6 +38,8 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Private an Protected Members
+
+    private Rigidbody m_rigidbody;
 
     #endregion
 }
