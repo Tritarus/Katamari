@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     #region Public Members
     [Range(1.0f, 50.0f)]
     public float m_speed;
+    [Range(1.0f, 50.0f)]
+    public float m_maxSpeed;
 
     #endregion
 
@@ -29,6 +31,10 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
         m_rigidbody.AddForce(movement * m_speed);
+        if (m_rigidbody.velocity.magnitude > m_maxSpeed)
+        {
+            m_rigidbody.velocity = m_rigidbody.velocity.normalized * m_maxSpeed;
+        }
     }
 
     #endregion
