@@ -23,7 +23,7 @@ public class CameraController : MonoBehaviour
 	
 	void Update()
     {
-		
+        transform.position = m_player.transform.position + m_offset;
 	}
 
     #endregion
@@ -34,7 +34,7 @@ public class CameraController : MonoBehaviour
 
     #region Private an Protected Members
 
-    private vector3 m_offset;
+    private Vector3 m_offset;
 
     #endregion
 }
