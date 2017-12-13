@@ -7,6 +7,7 @@ public class scriptStick1 : MonoBehaviour
     #endregion
 
     #region Public Methods
+    public float ColliderRelativeIncrease;
     #endregion
 
     #region System
@@ -14,6 +15,8 @@ public class scriptStick1 : MonoBehaviour
     {
         m_Transform = gameObject.GetComponent<Transform>();
         m_collider = gameObject.GetComponent<SphereCollider>();
+        m_collider.radius *= 0.9f;
+        ColliderRelativeIncrease = 0.005f;
     }
     void Start() { }
     void OnEnable() { }
@@ -36,10 +39,10 @@ public class scriptStick1 : MonoBehaviour
                 Vector3 sizeInScene = c.gameObject.GetComponent<MeshFilter>().sharedMesh.bounds.size;
                 Vector3 scaleInScene = c.gameObject.transform.localScale;
                 Vector3 size = new Vector3(sizeInScene.x * scaleInScene.x, sizeInScene.y * scaleInScene.y, sizeInScene.z * scaleInScene.z);
-                Debug.Log(size);
+                //Debug.Log(size);
                 
-                float add = Mathf.Abs(Mathf.Min(size.x, size.y, size.z) * 0.001f);
-                Debug.Log(add);
+                float add = Mathf.Abs(Mathf.Min(size.x, size.y, size.z) * ColliderRelativeIncrease);
+                //Debug.Log(add);
                 m_collider.radius += add;
             }
             else
