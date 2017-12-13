@@ -32,6 +32,15 @@ public class scriptStick : MonoBehaviour
             if (collider)
             {
                 collider.enabled = false;
+
+                Vector3 sizeInScene = c.gameObject.GetComponent<MeshFilter>().sharedMesh.bounds.size;
+                Vector3 scaleInScene = c.gameObject.transform.localScale;
+                Vector3 size = new Vector3(sizeInScene.x * scaleInScene.x, sizeInScene.y * scaleInScene.y, sizeInScene.z * scaleInScene.z);
+                Debug.Log(size);
+                
+                float add = Mathf.Abs(Mathf.Min(size.x, size.y, size.z) * 0.001f);
+                Debug.Log(add);
+                m_collider.radius += add;
             }
             else
             {
@@ -59,7 +68,7 @@ public class scriptStick : MonoBehaviour
     #region Tools Debug And Utilities
     private void OnGUI()
     {
-        GUILayout.Button("m_collider.radius " + m_collider.radius);
+        GUILayout.Button("m_collider.radius " + m_collider.radius);     
     }
     #endregion
 
