@@ -5,9 +5,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     #region Public Members
-    [Range(1.0f, 100.0f)]
+    [Range(1.0f, 50.0f)]
     public float m_speed;
-    public Rigidbody m_rigidbody;
+    [Range(1.0f, 50.0f)]
+    public float m_maxSpeed;
 
     #endregion
 
@@ -17,10 +18,10 @@ public class PlayerController : MonoBehaviour
 
     #region System
 
-    void Start()
+    void Awake()
     {
-		
-	}
+        m_rigidbody = GetComponent<Rigidbody>();
+}
 
     void FixedUpdate()
     {
@@ -30,6 +31,10 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
         m_rigidbody.AddForce(movement * m_speed);
+        if (m_rigidbody.velocity.magnitude > m_maxSpeed)
+        {
+            m_rigidbody.velocity = m_rigidbody.velocity.normalized * m_maxSpeed;
+        }
     }
 
     #endregion
@@ -39,6 +44,8 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Private an Protected Members
+
+    private Rigidbody m_rigidbody;
 
     #endregion
 }
