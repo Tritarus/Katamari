@@ -30,6 +30,12 @@ public class PlayerController : MonoBehaviour
 
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
+        Vector3 axis = Vector3.forward;
+
+        m_rigidbody.AddTorque(axis * m_maxSpeed * moveVertical);
+
+
+
         m_rigidbody.AddForce(movement * m_thrust);
         if (m_rigidbody.velocity.magnitude > m_maxSpeed)
         {
