@@ -5,10 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     #region Public Members
-    [Range(1.0f, 50.0f)]
-    public float m_thrust;
-    [Range(1.0f, 50.0f)]
-    public float m_maxSpeed;
+
+    public Transform m_zorbTransform;
 
     #endregion
 
@@ -20,27 +18,16 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        m_rigidbody = GetComponent<Rigidbody>();
-}
+        m_transform = GetComponent<Transform>();
+    }
 
     void FixedUpdate()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        float moveHorizontal = Input.GetAxisRaw("Horizontal");
+        m_transform.Rotate(new Vector3(0f, moveHorizontal, 0f));
+        Debug.DrawLine(m_transform.position, m_transform.forward * 100, Color.red);
 
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-
-        Vector3 axis = Vector3.forward;
-
-        m_rigidbody.AddTorque(axis * m_maxSpeed * moveVertical);
-
-
-
-        m_rigidbody.AddForce(movement * m_thrust);
-        if (m_rigidbody.velocity.magnitude > m_maxSpeed)
-        {
-            m_rigidbody.velocity = m_rigidbody.velocity.normalized * m_maxSpeed;
-        }
+        m_transform.position = m_zorbTransform.position;
     }
 
     #endregion
@@ -51,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
     #region Private an Protected Members
 
-    private Rigidbody m_rigidbody;
+    private Transform m_transform;
 
     #endregion
 }

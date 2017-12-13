@@ -24,7 +24,9 @@ public class CameraController : MonoBehaviour
 	void Update()
     {
         transform.position = m_player.transform.position + m_offset;
-	}
+        
+
+    }
 
     #endregion
 
