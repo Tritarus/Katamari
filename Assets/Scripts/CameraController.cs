@@ -19,21 +19,21 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        m_transform = transform;
+        m_transform = GetComponent<Transform>();
         m_radius = m_zorb.GetComponent<SphereCollider>().radius;
-        ratio_y = m_transform.position.y / m_radius;
-        ratio_z = m_transform.position.z / m_radius;
+        ratio_y = m_transform.localPosition.y / m_radius;
+        ratio_z = m_transform.localPosition.z / m_radius;
     }
 	
 	void LateUpdate()
     {
-        //m_radius = m_zorb.GetComponent<SphereCollider>().radius;
+        m_radius = m_zorb.GetComponent<SphereCollider>().radius;
 
-        //Vector3 tmp = m_transform.position;
-        //tmp.y = m_radius * ratio_y;
-        //tmp.z = m_radius * ratio_z;
+        Vector3 tmp = m_transform.localPosition;
+        tmp.y = m_radius * ratio_y;
+        tmp.z = m_radius * ratio_z;
 
-        //m_transform.position = tmp;
+        m_transform.localPosition = tmp;
 
         //transform.position = m_hamsterTransform.position + m_offset;
         //    Vector3.SmoothDamp(transform.position, m_DesiredPosition, ref m_MoveVelocity, m_DampTime);
