@@ -51,23 +51,28 @@ public class Spawner : MonoBehaviour
     private void SpawnV2(float radiusModifier = 1.2f, bool init = false)
     {
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        sphere.layer = 9;
-        sphere.AddComponent<Rigidbody>();
-        sphere.GetComponent<Rigidbody>().mass = 0;
-        sphere.transform.localScale = GetScale(m_zorb, radiusModifier);
 
         Vector3 worldVect = Vector3.zero;
         Vector3 camVect = Vector3.zero;
         bool outOfCamera = false;
-
-        for (int i = 0; i < 2 && !outOfCamera; i++)
+        int maxTest = 3;
+        for (int i = 0; i <= maxTest && !outOfCamera; i++)
         {
             worldVect = new Vector3(Random.Range(-45f, 45f), sphere.GetComponent<SphereCollider>().radius, Random.Range(-45f, 45f));
             camVect = m_camera.WorldToViewportPoint(worldVect);
             if (camVect.x < -1 || camVect.x > 1 || camVect.y < -1 || camVect.y > 1 || init)
             {
-                outOfCamera = true;
+                sphere.layer = 9;
+                sphere.AddComponent<Rigidbody>();
+                sphere.GetComponent<Rigidbody>().mass = 0;
+                sphere.transform.localScale = GetScale(m_zorb, radiusModifier);
                 sphere.transform.position = worldVect;
+
+                outOfCamera = true;
+            }
+            else if(i == maxTest)
+            {
+                Destroy(sphere);
             }
         }
         if (!init)
