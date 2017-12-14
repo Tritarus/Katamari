@@ -6,8 +6,9 @@ public class CameraController : MonoBehaviour
 {
     #region Public Members
 
-    public GameObject m_player;
-    
+    public Transform m_hamsterTransform;
+    public Transform m_zorbTranform;
+
     #endregion
 
     #region Public void
@@ -18,14 +19,14 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        m_offset = transform.position - m_player.transform.position;
+        //m_offset = transform.position - m_hamsterTransform.position;
 	}
 	
 	void Update()
     {
-        transform.position = m_player.transform.position + m_offset;
-        
-
+        //transform.position = m_hamsterTransform.position + m_offset;
+        //    Vector3.SmoothDamp(transform.position, m_DesiredPosition, ref m_MoveVelocity, m_DampTime);
+        //transform.position = -m_hamsterTransform.forward * m_offset;
     }
 
     #endregion
