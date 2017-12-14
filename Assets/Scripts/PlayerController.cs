@@ -5,22 +5,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     #region Public Members
-
     public Transform m_zorbTransform;
-
     #endregion
-
-    #region Public void
-
-    #endregion
-
+    
     #region System
-
     void Awake()
     {
         m_transform = GetComponent<Transform>();
     }
-
     void FixedUpdate()
     {
         float moveHorizontal = Input.GetAxisRaw("Horizontal");
@@ -29,16 +21,9 @@ public class PlayerController : MonoBehaviour
 
         m_transform.position = m_zorbTransform.position;
     }
-
-    #endregion
-
-    #region Tools Debug And Utility
-
     #endregion
 
     #region Private an Protected Members
-
     private Transform m_transform;
-
     #endregion
 }

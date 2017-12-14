@@ -6,8 +6,8 @@ public class CameraController : MonoBehaviour
 {
     #region Public Members
 
-    public Transform m_hamsterTransform;
-    public Transform m_zorbTranform;
+    //public Transform m_hamsterTransform;
+    public GameObject m_zorb;
 
     #endregion
 
@@ -19,11 +19,22 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        //m_offset = transform.position - m_hamsterTransform.position;
-	}
+        m_transform = transform;
+        m_radius = m_zorb.GetComponent<SphereCollider>().radius;
+        ratio_y = m_transform.position.y / m_radius;
+        ratio_z = m_transform.position.z / m_radius;
+    }
 	
-	void Update()
+	void LateUpdate()
     {
+        //m_radius = m_zorb.GetComponent<SphereCollider>().radius;
+
+        //Vector3 tmp = m_transform.position;
+        //tmp.y = m_radius * ratio_y;
+        //tmp.z = m_radius * ratio_z;
+
+        //m_transform.position = tmp;
+
         //transform.position = m_hamsterTransform.position + m_offset;
         //    Vector3.SmoothDamp(transform.position, m_DesiredPosition, ref m_MoveVelocity, m_DampTime);
         //transform.position = -m_hamsterTransform.forward * m_offset;
@@ -36,8 +47,10 @@ public class CameraController : MonoBehaviour
     #endregion
 
     #region Private an Protected Members
-
-    private Vector3 m_offset;
+    private Transform m_transform;
+    private float m_radius;
+    private float ratio_y;
+    private float ratio_z;
 
     #endregion
 }

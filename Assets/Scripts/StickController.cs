@@ -4,13 +4,9 @@ using UnityEngine.UI;
 public class StickController : MonoBehaviour
 {
     #region Public Members
-    #endregion
-
-    #region Public Methods
     public Spawner m_spawner;
     public float ColliderRelativeIncrease = 0.04f;
     public float m_catchableRatio = .5f;
-
     #endregion
 
     #region System
@@ -20,34 +16,13 @@ public class StickController : MonoBehaviour
         m_collider = gameObject.GetComponent<SphereCollider>();
         m_collider.radius *= 0.9f;
     }
-    void Start() {  }
-    void OnEnable() { }
-
-    void FixedUpdate() { }
-    void Update() { }
-    void LateUpdate() { }
-
-    private Vector3 GetGameObjectRealSize(GameObject gameObject)
-    {
-        Vector3 sizeInScene = gameObject.GetComponent<MeshFilter>().sharedMesh.bounds.size;
-        Vector3 scaleInScene = gameObject.transform.localScale;
-        return new Vector3(sizeInScene.x * scaleInScene.x, sizeInScene.y * scaleInScene.y, sizeInScene.z * scaleInScene.z);
-    }
 
     void OnCollisionEnter(Collision c)
     {
         if (c.gameObject.layer == 9) //Collectible
         {
             Vector3 CollectibleSize = GetGameObjectRealSize(c.gameObject);
-            /*
-            Debug.Log("CollectibleSize = " + CollectibleSize);
-            Debug.Log("CollectibleSize.magnitude = " + CollectibleSize.magnitude);
 
-            Debug.Log("m_collider.radius = " + m_collider.radius);
-            Debug.Log("m_catchableRatio = " + m_catchableRatio);
-            Debug.Log("m_collider.radius * m_catchableRatio = " + m_collider.radius * m_catchableRatio);
-            Debug.Log("-------------------------");
-            */
             if (CollectibleSize.magnitude < m_collider.radius * m_catchableRatio){
                 c.transform.parent = m_Transform;
 
@@ -55,17 +30,8 @@ public class StickController : MonoBehaviour
                 if (collider)
                 {
                     collider.enabled = false;
-
-                    
-                    //Debug.Log(size);
-
                     float add = Mathf.Abs(Mathf.Min(CollectibleSize.x, CollectibleSize.y, CollectibleSize.z) * ColliderRelativeIncrease);
-                    //Debug.Log(add);
                     m_collider.radius += add;
-                }
-                else
-                {
-                    Debug.Log("OnCollisionEnter:collider=false");
                 }
                 Rigidbody rigidbody = c.gameObject.GetComponent<Rigidbody>();
                 if (rigidbody)
@@ -73,10 +39,6 @@ public class StickController : MonoBehaviour
                     rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
                     rigidbody.useGravity = false;
                     rigidbody.isKinematic = true;
-                }
-                else
-                {
-                    Debug.Log("OnCollisionEnter:rigidbody=false");
                 }
                 c.gameObject.layer = 0;
                 m_spawner.Spawn();
@@ -86,6 +48,12 @@ public class StickController : MonoBehaviour
     #endregion
 
     #region Class Methods
+    private Vector3 GetGameObjectRealSize(GameObject gameObject)
+    {
+        Vector3 sizeInScene = gameObject.GetComponent<MeshFilter>().sharedMesh.bounds.size;
+        Vector3 scaleInScene = gameObject.transform.localScale;
+        return new Vector3(sizeInScene.x * scaleInScene.x, sizeInScene.y * scaleInScene.y, sizeInScene.z * scaleInScene.z);
+    }
     #endregion
 
     #region Tools Debug And Utilities

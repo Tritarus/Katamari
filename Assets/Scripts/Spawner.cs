@@ -2,20 +2,13 @@
 
 public class Spawner : MonoBehaviour
 {
-    #region Public Members
-    
+    #region Public Members    
     public GameObject m_zoneToSpawn;
     public GameObject m_zorb;
     public Camera m_camera;
-
-    #endregion
-
-    #region Public Methods
     #endregion
 
     #region System
-    void Awake() { }
-    void Start() { }
     void OnEnable()
     {
         for (int i = 0; i < 500; i++)
@@ -25,12 +18,6 @@ public class Spawner : MonoBehaviour
             Spawn(1f, init: true);
         }
     }
-
-    void FixedUpdate() { }
-    void Update() { }
-    void LateUpdate() { }
-
-    void OnGUI() { }
     #endregion
 
     #region Class Methods
@@ -46,14 +33,13 @@ public class Spawner : MonoBehaviour
         SpawnV2(radiusModifier, init);
     }
 
-    public void SpawnV1(float radiusModifier = 1.2f, bool init = false)
+    private void SpawnV1(float radiusModifier = 1.2f, bool init = false)
     {
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         sphere.layer = 9;
         sphere.AddComponent<Rigidbody>();
         sphere.GetComponent<Rigidbody>().mass = 0;
         sphere.transform.localScale = GetScale(m_zorb, radiusModifier);
-        //sphere.transform.position = GetPosition(m_zoneToSpawn, sphere);
 
         sphere.transform.position = new Vector3(Random.Range(-45f, 45f), sphere.GetComponent<SphereCollider>().radius, Random.Range(-45f, 45f));
 
@@ -62,27 +48,24 @@ public class Spawner : MonoBehaviour
             sphere.GetComponent<MeshRenderer>().material.color = Color.red;
         }
     }
-    public void SpawnV2(float radiusModifier = 1.2f, bool init = false)
+    private void SpawnV2(float radiusModifier = 1.2f, bool init = false)
     {
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         sphere.layer = 9;
         sphere.AddComponent<Rigidbody>();
         sphere.GetComponent<Rigidbody>().mass = 0;
         sphere.transform.localScale = GetScale(m_zorb, radiusModifier);
-        //sphere.transform.position = GetPosition(m_zoneToSpawn, sphere);
-        
-        //Vector3 worldVect = new Vector3(Random.Range(-45f, 45f), -10f, Random.Range(-45f, 45f));
+
         Vector3 worldVect = Vector3.zero;
         Vector3 camVect = Vector3.zero;
         bool outOfCamera = false;
 
-        while (!outOfCamera)
+        for (int i = 0; i < 2 && !outOfCamera; i++)
         {
             worldVect = new Vector3(Random.Range(-45f, 45f), sphere.GetComponent<SphereCollider>().radius, Random.Range(-45f, 45f));
             camVect = m_camera.WorldToViewportPoint(worldVect);
             if (camVect.x < -1 || camVect.x > 1 || camVect.y < -1 || camVect.y > 1 || init)
             {
-                //worldVect.y = sphere.GetComponent<SphereCollider>().radius;
                 outOfCamera = true;
                 sphere.transform.position = worldVect;
             }
@@ -108,11 +91,4 @@ public class Spawner : MonoBehaviour
         return res;
     }
     #endregion
-
-    #region Tools Debug And Utilities
-    #endregion
-
-    #region Private an Protected Members
-    #endregion
-
 }
