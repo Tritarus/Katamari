@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class scriptStick1 : MonoBehaviour
+public class StickController : MonoBehaviour
 {
     #region Public Members
     #endregion

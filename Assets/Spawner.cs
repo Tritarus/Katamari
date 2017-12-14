@@ -38,7 +38,7 @@ public class Spawner : MonoBehaviour
         sphere.AddComponent<Rigidbody>();
         sphere.transform.localScale = GetScale(m_zorb);
         //sphere.transform.position = GetPosition(m_zoneToSpawn, sphere);
-        sphere.transform.position = new Vector3(Random.Range(-20f,20f), sphere.GetComponent<SphereCollider>().radius*2, Random.Range(-20f, 20f));
+        sphere.transform.position = new Vector3(Random.Range(-20f,20f), sphere.GetComponent<SphereCollider>().radius, Random.Range(-20f, 20f));
     }
 
     Vector3 GetScale(GameObject m_zorb)
