@@ -545,7 +545,6 @@ GameObject:
   - component: {fileID: 608440315}
   - component: {fileID: 608440314}
   - component: {fileID: 608440320}
-  - component: {fileID: 608440319}
   - component: {fileID: 608440313}
   m_Layer: 8
   m_Name: Zorb
@@ -646,17 +645,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &608440319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 608440312}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e21e1b571f6d7440ac6eab5fb268373, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &608440320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -668,8 +656,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f455681e2280994f9740765c2c79d64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ColliderRelativeIncrease: 0.005
-  m_catchableRatio: 2
+  ColliderRelativeIncrease: 0.04
+  m_catchableRatio: 1.75
 --- !u!1001 &642347621
 Prefab:
   m_ObjectHideFlags: 0
@@ -1883,7 +1871,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4915308069034026, guid: ff5e7404658b03d42b246636d8f70604, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4915308069034026, guid: ff5e7404658b03d42b246636d8f70604, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1915,15 +1903,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4915308069034026, guid: ff5e7404658b03d42b246636d8f70604, type: 2}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4915308069034026, guid: ff5e7404658b03d42b246636d8f70604, type: 2}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4915308069034026, guid: ff5e7404658b03d42b246636d8f70604, type: 2}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ff5e7404658b03d42b246636d8f70604, type: 2}
