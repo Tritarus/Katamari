@@ -34,10 +34,6 @@ public class CameraController : MonoBehaviour
         tmp.z = m_radius * ratio_z;
 
         m_transform.localPosition = tmp;
-
-        //transform.position = m_hamsterTransform.position + m_offset;
-        //    Vector3.SmoothDamp(transform.position, m_DesiredPosition, ref m_MoveVelocity, m_DampTime);
-        //transform.position = -m_hamsterTransform.forward * m_offset;
     }
 
     #endregion
