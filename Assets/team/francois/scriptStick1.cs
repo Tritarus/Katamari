@@ -7,6 +7,7 @@ public class scriptStick1 : MonoBehaviour
     #endregion
 
     #region Public Methods
+    public Spawner m_spawner;
     public float ColliderRelativeIncrease = 0.005f;
     public float m_catchableRatio = .5f;
 
@@ -38,6 +39,7 @@ public class scriptStick1 : MonoBehaviour
         if (c.gameObject.layer == 9) //Collectible
         {
             Vector3 CollectibleSize = GetGameObjectRealSize(c.gameObject);
+            /*
             Debug.Log("CollectibleSize = " + CollectibleSize);
             Debug.Log("CollectibleSize.magnitude = " + CollectibleSize.magnitude);
 
@@ -45,7 +47,7 @@ public class scriptStick1 : MonoBehaviour
             Debug.Log("m_catchableRatio = " + m_catchableRatio);
             Debug.Log("m_collider.radius * m_catchableRatio = " + m_collider.radius * m_catchableRatio);
             Debug.Log("-------------------------");
-
+            */
             if (CollectibleSize.magnitude < m_collider.radius * m_catchableRatio){
                 c.transform.parent = m_Transform;
 
@@ -77,6 +79,7 @@ public class scriptStick1 : MonoBehaviour
                     Debug.Log("OnCollisionEnter:rigidbody=false");
                 }
                 c.gameObject.layer = 0;
+                m_spawner.Spawn();
             }
         }
     }
