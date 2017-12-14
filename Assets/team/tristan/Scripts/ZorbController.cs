@@ -30,8 +30,8 @@ public class ZorbController : MonoBehaviour
     {
         float moveVertical = Input.GetAxisRaw("Vertical");
         Vector3 forward = m_hamsterTransform.forward;
-        Debug.Log(moveVertical);
-        Debug.Log(m_rigidbody.velocity);
+        //Debug.Log(moveVertical);
+        //Debug.Log(m_rigidbody.velocity);
 
         
         m_rigidbody.velocity = forward * m_thrust * moveVertical;
@@ -48,7 +48,7 @@ public class ZorbController : MonoBehaviour
 
     void OnGUI()
     {
-        GUILayout.Button("input " + Input.GetAxis("Vertical"));
+
     }
     #endregion
 

@@ -7,7 +7,9 @@ public class scriptStick1 : MonoBehaviour
     #endregion
 
     #region Public Methods
-    public float ColliderRelativeIncrease;
+    public float ColliderRelativeIncrease = 0.005f;
+    public float m_catchableRatio = .5f;
+
     #endregion
 
     #region System
@@ -16,7 +18,6 @@ public class scriptStick1 : MonoBehaviour
         m_Transform = gameObject.GetComponent<Transform>();
         m_collider = gameObject.GetComponent<SphereCollider>();
         m_collider.radius *= 0.9f;
-        ColliderRelativeIncrease = 0.005f;
     }
     void Start() { }
     void OnEnable() { }
@@ -25,42 +26,58 @@ public class scriptStick1 : MonoBehaviour
     void Update() { }
     void LateUpdate() { }
 
+    private Vector3 GetGameObjectRealSize(GameObject gameObject)
+    {
+        Vector3 sizeInScene = gameObject.GetComponent<MeshFilter>().sharedMesh.bounds.size;
+        Vector3 scaleInScene = gameObject.transform.localScale;
+        return new Vector3(sizeInScene.x * scaleInScene.x, sizeInScene.y * scaleInScene.y, sizeInScene.z * scaleInScene.z);
+    }
+
     void OnCollisionEnter(Collision c)
     {
         if (c.gameObject.layer == 9) //Collectible
         {
-            c.transform.parent = m_Transform;
+            Vector3 CollectibleSize = GetGameObjectRealSize(c.gameObject);
+            Debug.Log("CollectibleSize = " + CollectibleSize);
+            Debug.Log("CollectibleSize.magnitude = " + CollectibleSize.magnitude);
 
-            Collider collider = c.gameObject.GetComponent<Collider>();
-            if (collider)
-            {
-                collider.enabled = false;
+            Debug.Log("m_collider.radius = " + m_collider.radius);
+            Debug.Log("m_catchableRatio = " + m_catchableRatio);
+            Debug.Log("m_collider.radius * m_catchableRatio = " + m_collider.radius * m_catchableRatio);
+            Debug.Log("-------------------------");
 
-                Vector3 sizeInScene = c.gameObject.GetComponent<MeshFilter>().sharedMesh.bounds.size;
-                Vector3 scaleInScene = c.gameObject.transform.localScale;
-                Vector3 size = new Vector3(sizeInScene.x * scaleInScene.x, sizeInScene.y * scaleInScene.y, sizeInScene.z * scaleInScene.z);
-                //Debug.Log(size);
-                
-                float add = Mathf.Abs(Mathf.Min(size.x, size.y, size.z) * ColliderRelativeIncrease);
-                //Debug.Log(add);
-                m_collider.radius += add;
+            if (CollectibleSize.magnitude < m_collider.radius * m_catchableRatio){
+                c.transform.parent = m_Transform;
+
+                Collider collider = c.gameObject.GetComponent<Collider>();
+                if (collider)
+                {
+                    collider.enabled = false;
+
+                    
+                    //Debug.Log(size);
+
+                    float add = Mathf.Abs(Mathf.Min(CollectibleSize.x, CollectibleSize.y, CollectibleSize.z) * ColliderRelativeIncrease);
+                    //Debug.Log(add);
+                    m_collider.radius += add;
+                }
+                else
+                {
+                    Debug.Log("OnCollisionEnter:collider=false");
+                }
+                Rigidbody rigidbody = c.gameObject.GetComponent<Rigidbody>();
+                if (rigidbody)
+                {
+                    rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+                    rigidbody.useGravity = false;
+                    rigidbody.isKinematic = true;
+                }
+                else
+                {
+                    Debug.Log("OnCollisionEnter:rigidbody=false");
+                }
+                c.gameObject.layer = 0;
             }
-            else
-            {
-                Debug.Log("OnCollisionEnter:collider=false");
-            }
-            Rigidbody rigidbody = c.gameObject.GetComponent<Rigidbody>();
-            if (rigidbody)
-            {
-                rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
-                rigidbody.useGravity = false;
-                rigidbody.isKinematic = true;
-            }
-            else
-            {
-                Debug.Log("OnCollisionEnter:rigidbody=false");
-            }
-            c.gameObject.layer = 0;
         }
     }
     #endregion
