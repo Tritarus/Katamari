@@ -8,7 +8,7 @@ public class StickController : MonoBehaviour
 
     #region Public Methods
     public Spawner m_spawner;
-    public float ColliderRelativeIncrease = 0.005f;
+    public float ColliderRelativeIncrease = 0.04f;
     public float m_catchableRatio = .5f;
 
     #endregion
@@ -20,7 +20,7 @@ public class StickController : MonoBehaviour
         m_collider = gameObject.GetComponent<SphereCollider>();
         m_collider.radius *= 0.9f;
     }
-    void Start() { }
+    void Start() {  }
     void OnEnable() { }
 
     void FixedUpdate() { }
