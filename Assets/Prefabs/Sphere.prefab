@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 23330754055737080}
   - component: {fileID: 54859589428113358}
   m_Layer: 9
-  m_Name: CollectibleTemplate
+  m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

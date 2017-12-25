@@ -266,6 +266,8 @@ MonoBehaviour:
   m_zorb: {fileID: 608440312}
   m_camera: {fileID: 1071271189}
   m_ballNumber: 10000
+  m_collectible: {fileID: 1795715378695458, guid: 4aed50a00c5d08c4fb2bbd91a9ccf398,
+    type: 2}
 --- !u!4 &660962922
 Transform:
   m_ObjectHideFlags: 0
