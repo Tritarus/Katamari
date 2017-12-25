@@ -6,18 +6,33 @@ public class Spawner : MonoBehaviour
     public GameObject m_zoneToSpawn;
     public GameObject m_zorb;
     public Camera m_camera;
+    public int m_ballNumber;
     #endregion
 
     #region System
+
+    private void Awake()
+    {
+        m_planeRenderer = GetComponentInChildren<Renderer>();
+        m_minusX = -m_planeRenderer.bounds.size.x / 2 - 5;
+        m_plusX = m_planeRenderer.bounds.size.x / 2 - 5;
+        m_minusZ = -m_planeRenderer.bounds.size.z / 2 - 5;
+        m_plusZ = m_planeRenderer.bounds.size.z / 2 - 5;
+    }
+
     void OnEnable()
     {
-        for (int i = 0; i < 500; i++)
+        for (int i = 0; i < m_ballNumber/3; i++)
         {
             Spawn(.5f, init:true);
             Spawn(.8f, init: true);
             Spawn(1f, init: true);
         }
     }
+
+
+    //Debug.Log("T(): );
+
     #endregion
 
     #region Class Methods
@@ -41,7 +56,7 @@ public class Spawner : MonoBehaviour
         sphere.GetComponent<Rigidbody>().mass = 0;
         sphere.transform.localScale = GetScale(m_zorb, radiusModifier);
 
-        sphere.transform.position = new Vector3(Random.Range(-45f, 45f), sphere.GetComponent<SphereCollider>().radius, Random.Range(-45f, 45f));
+        sphere.transform.position = new Vector3(Random.Range(m_minusX, m_plusX), sphere.GetComponent<SphereCollider>().radius, Random.Range(m_minusZ, m_plusZ));
 
         if (init)
         {
@@ -58,7 +73,7 @@ public class Spawner : MonoBehaviour
         int maxTest = 3;
         for (int i = 0; i <= maxTest && !outOfCamera; i++)
         {
-            worldVect = new Vector3(Random.Range(-45f, 45f), sphere.GetComponent<SphereCollider>().radius, Random.Range(-45f, 45f));
+            worldVect = new Vector3(Random.Range(m_minusX, m_plusX), sphere.GetComponent<SphereCollider>().radius, Random.Range(m_minusZ, m_plusZ));
             camVect = m_camera.WorldToViewportPoint(worldVect);
             if (camVect.x < -1 || camVect.x > 1 || camVect.y < -1 || camVect.y > 1 || init)
             {
@@ -95,5 +110,15 @@ public class Spawner : MonoBehaviour
         planeSize.z -= 1;
         return res;
     }
+    #endregion
+
+    #region Private Members
+
+    private Renderer m_planeRenderer;
+    private float m_minusX;
+    private float m_plusX;
+    private float m_minusZ;
+    private float m_plusZ;
+
     #endregion
 }
