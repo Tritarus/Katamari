@@ -32,7 +32,7 @@ public class Spawner : MonoBehaviour
             Spawn(.8f, init: true);
             Spawn(1f, init: true);
         }
-        Debug.Log("Collectible number : " + m_collectibleList.Count);
+        //Debug.Log("Collectible number : " + m_collectibleList.Count);
     }
 
 
@@ -93,7 +93,7 @@ public class Spawner : MonoBehaviour
             else if(i == maxTest)
             {
                 Destroy(sphere);
-                Debug.Log(m_collectibleList.Count);
+                //Debug.Log(m_collectibleList.Count);
             }
         }
         if (!init)

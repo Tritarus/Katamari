@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class StickController : MonoBehaviour
 {
@@ -60,7 +61,8 @@ public class StickController : MonoBehaviour
     #region Tools Debug And Utilities
     private void OnGUI()
     {
-        GUILayout.Button("m_collider.radius " + m_collider.radius);     
+        GUILayout.Button("m_collider.radius " + Math.Round(m_collider.radius, 3));
+        GUILayout.Button("m_collectible number " + m_spawner.m_collectibleList.Count);
     }
     #endregion
 
