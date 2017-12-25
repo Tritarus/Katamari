@@ -14,10 +14,11 @@ public class Spawner : MonoBehaviour
     private void Awake()
     {
         m_planeRenderer = GetComponentInChildren<Renderer>();
-        m_minusX = -m_planeRenderer.bounds.size.x / 2 - 5;
+        m_minusX = -m_planeRenderer.bounds.size.x / 2 + 5;
         m_plusX = m_planeRenderer.bounds.size.x / 2 - 5;
-        m_minusZ = -m_planeRenderer.bounds.size.z / 2 - 5;
+        m_minusZ = -m_planeRenderer.bounds.size.z / 2 + 5;
         m_plusZ = m_planeRenderer.bounds.size.z / 2 - 5;
+        Debug.Log("Spawn Zone : " + m_minusX + "," + m_minusZ + "-" + m_plusX + "," + m_plusZ);
     }
 
     void OnEnable()
