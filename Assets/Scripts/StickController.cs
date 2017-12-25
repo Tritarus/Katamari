@@ -41,6 +41,7 @@ public class StickController : MonoBehaviour
                     rigidbody.isKinematic = true;
                 }
                 c.gameObject.layer = 0;
+                m_spawner.m_collectibleList.Remove(c.gameObject);
                 m_spawner.Spawn();
             }
         }

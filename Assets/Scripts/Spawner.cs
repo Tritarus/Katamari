@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class Spawner : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class Spawner : MonoBehaviour
     public GameObject m_zorb;
     public Camera m_camera;
     public int m_ballNumber;
+    [HideInInspector]
+    public ArrayList m_collectibleList = new ArrayList();
     #endregion
 
     #region System
@@ -25,10 +28,11 @@ public class Spawner : MonoBehaviour
     {
         for (int i = 0; i < m_ballNumber/3; i++)
         {
-            Spawn(.5f, init:true);
+            Spawn(.5f, init: true);
             Spawn(.8f, init: true);
             Spawn(1f, init: true);
         }
+        Debug.Log("Collectible number : " + m_collectibleList.Count);
     }
 
 
@@ -71,7 +75,7 @@ public class Spawner : MonoBehaviour
         Vector3 worldVect = Vector3.zero;
         Vector3 camVect = Vector3.zero;
         bool outOfCamera = false;
-        int maxTest = 3;
+        int maxTest = 5;
         for (int i = 0; i <= maxTest && !outOfCamera; i++)
         {
             worldVect = new Vector3(Random.Range(m_minusX, m_plusX), sphere.GetComponent<SphereCollider>().radius, Random.Range(m_minusZ, m_plusZ));
@@ -83,12 +87,13 @@ public class Spawner : MonoBehaviour
                 sphere.GetComponent<Rigidbody>().mass = 0;
                 sphere.transform.localScale = GetScale(m_zorb, radiusModifier);
                 sphere.transform.position = worldVect;
-
+                m_collectibleList.Add(sphere);
                 outOfCamera = true;
             }
             else if(i == maxTest)
             {
                 Destroy(sphere);
+                Debug.Log(m_collectibleList.Count);
             }
         }
         if (!init)
